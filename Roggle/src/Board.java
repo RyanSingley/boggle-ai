@@ -84,7 +84,6 @@ public class Board {
 					return null;
 
 				}
-				//current.setSeen(false);//TODO fix bug here
 				searchStack.pop();
 				current=searchStack.peek();
 				depth--;
