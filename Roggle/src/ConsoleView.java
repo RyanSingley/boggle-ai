@@ -19,8 +19,6 @@ public class ConsoleView {
 		System.out.println("     "+playerScore+"                                      "+cpuScore+"       ");
 		System.out.println("                             GAME BOARD:");
 		System.out.println(board);
-		
-		
 	}
 	private void displayWords(ArrayList<String> playerWords,
 			ArrayList<String> cpuWords) {
