@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class ConsoleView implements roggleView {
+public class ConsoleView implements RoggleView {
 	private static final int DISPLAY_ROWS=15;
 	public ConsoleView() {//needs the game object to pass to the controller
 		
@@ -32,7 +32,6 @@ public class ConsoleView implements roggleView {
 		for(int x=0;x<DISPLAY_ROWS;x++){
 			for(int y=0;y<playerCols;y++){
 				System.out.print(" ");
-				//System.out.print(arrPlayerWords[y*DISPLAY_ROWS+x]);
 				if(playerWords.size()>(y*DISPLAY_ROWS+x)){
 					//print the word and padding spaces
 					System.out.print(playerWords.get(y*DISPLAY_ROWS+x));

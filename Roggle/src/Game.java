@@ -10,7 +10,7 @@ public class Game {
 		Board gB;
 		GameDictionary dict;
 		ArrayList<String> playerWords;
-		ConsoleView view;
+		RoggleView view;
 		KeyboardInput control;
 		int playerScore;
 		ArrayList<String> cpuWords;
@@ -21,7 +21,6 @@ public class Game {
 		private static final String NOT_IN_DICT_MESSAGE=" is not in the dictionary.\nDictionary used is the Open Word List, complain to them if your word isn't allowed:)\n";
 		private static final String BAD_WORD_MESSAGE=" is not a valid word in this game.\nWords must be at least 3 letters, with no punctuation or special characters.\nWords cannot be played twice, even if they appear on the board twice.\n";
 	public Game() {
-		// TODO
 		//create the board, propagate it,
 		gB=new Board();
 		//create dictionary
@@ -97,7 +96,7 @@ public class Game {
 		word=control.getWord();
 		if(word.equals("?")){
 			//special input for help
-			//TODO
+			view.displayHelp();
 		} else if (word.equals("!")){
 			//special input for done entering words
 			return;

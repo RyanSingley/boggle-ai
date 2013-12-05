@@ -15,14 +15,6 @@ public class Board {
 	public BoardNode getNodeAt(int x,int y){// 1 based
 		return gameBoard[x-1][y-1];
 	}
-	public BoardNode[] findAllPaths(int x,int y){
-
-		//returns a list of BoardNode arrays, each element in the array is a reference to a BoardNode in the path
-		//TODO this is seeming crazy complicated, it has an O(n^3) complexity operation on every 2 points on the graph, making it at least O(n^5)
-
-
-		return null;
-	}
 	public boolean isOnBoard(String word){
 
 		if(findWord(word)!=null){
@@ -43,7 +35,7 @@ public class Board {
 		char firstChar=word.charAt(0);
 		BoardNode[] path=null;
 		//list of startpoints
-		List<BoardNode> startPoints=new ArrayList<BoardNode>();//TODO different type of list?
+		List<BoardNode> startPoints=new ArrayList<BoardNode>();
 		for(int x=0;x<SIZEX+1;x++){
 			for(int y=0;y<SIZEY+1;y++){
 				if(gameBoard[x][y].getContents()==firstChar){

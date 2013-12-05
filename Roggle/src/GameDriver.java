@@ -8,7 +8,6 @@ public class GameDriver {
         game.startNewGame();
 	}
 	//TODO 's:
-	//hardcode board size of 4x4, it's already done in some places
 	//refactor game loop -- pull out some logic to separate methods
 	//rename stuff
 	//private/public
