@@ -11,12 +11,12 @@ public class ConsoleView {
 		int num=0;
 		for (int i = 0; i < 50; ++i) System.out.println(); // clear the screen the nice multiplatform way
 		System.out.println("Roggle:");
-		System.out.println("     PLAYER WORDS:                                   COMPUTER WORDS:");
+		System.out.println(" PLAYER WORDS:                             COMPUTER WORDS:");
 		displayWords(playerWords,cpuWords);
 		
 	
-		System.out.println("     PLAYER SCORE:                                   COMPUTER SCORE:");
-		System.out.println("         "+playerScore+"                                            "+cpuScore+"       ");
+		System.out.println(" PLAYER SCORE:                             COMPUTER SCORE:");
+		System.out.println("     "+playerScore+"                                      "+cpuScore+"       ");
 		System.out.println("                             GAME BOARD:");
 		System.out.println(board);
 		
@@ -33,7 +33,7 @@ public class ConsoleView {
 		//now the arrays have the appropriate amount of padding, display them
 		for(int x=0;x<DISPLAY_ROWS;x++){
 			for(int y=0;y<playerCols;y++){
-				System.out.print("      ");
+				System.out.print(" ");
 				//System.out.print(arrPlayerWords[y*DISPLAY_ROWS+x]);
 				if(playerWords.size()>(y*DISPLAY_ROWS+x)){
 					//print the word and padding spaces
@@ -46,9 +46,13 @@ public class ConsoleView {
 					System.out.print("                ");
 				}
 			}
-			System.out.print("              ");
+			for(int z=4;z>cpuCols;z--){
+				//variable padding between player and cpu words
+				System.out.print("  ");
+			}
+			System.out.print("|");
 			for(int y=0;y<cpuCols;y++){
-				System.out.print("      ");
+				System.out.print(" ");
 				if(cpuWords.size()>(y*DISPLAY_ROWS+x)){
 					//print the word and padding spaces
 					System.out.print(cpuWords.get(y*DISPLAY_ROWS+x));
