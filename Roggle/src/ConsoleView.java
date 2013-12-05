@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 
 public class ConsoleView {
+	private static final int DISPLAY_ROWS=15;
 	public ConsoleView() {//needs the game object to pass to the controller
 		
 	}
@@ -11,36 +12,56 @@ public class ConsoleView {
 		for (int i = 0; i < 50; ++i) System.out.println(); // clear the screen the nice multiplatform way
 		System.out.println("Roggle:");
 		System.out.println("     PLAYER WORDS:                                   COMPUTER WORDS:");
-		//determine which word list is larger, to make sure we display all possible
-		if(playerWords.size()>cpuWords.size()){
-			num=playerWords.size();
-		} else {
-			num=cpuWords.size();
-		}
+		displayWords(playerWords,cpuWords);
 		
-		for(int x=0;x<num;x++){
-			System.out.print("     ");
-			if(x<playerWords.size()){
-				System.out.print(playerWords.get(x));
-				//words are a max length of 16, so insert 16- the length of the player's word
-				for(int y=0;y<(16-playerWords.get(x).length());y++){
-					System.out.print(' ');
-				}
-			} else {
-				System.out.print("                ");
-			}
-			
-			if(x<cpuWords.size()){
-				System.out.print(cpuWords.get(x));
-			} 
-			System.out.println();
-		}
+	
 		System.out.println("     PLAYER SCORE:                                   COMPUTER SCORE:");
 		System.out.println("         "+playerScore+"                                            "+cpuScore+"       ");
 		System.out.println("                             GAME BOARD:");
 		System.out.println(board);
 		
 		
+	}
+	private void displayWords(ArrayList<String> playerWords,
+			ArrayList<String> cpuWords) {
+		// Displays player and cpu words in arranged columns
+		
+		//determine how many columns we need for player and cpu words
+		int cpuCols=(cpuWords.size()/DISPLAY_ROWS)+1;//DISPLAY_ROWS is the max number of rows
+		int playerCols=(playerWords.size()/DISPLAY_ROWS)+1;
+		
+		//now the arrays have the appropriate amount of padding, display them
+		for(int x=0;x<DISPLAY_ROWS;x++){
+			for(int y=0;y<playerCols;y++){
+				System.out.print("      ");
+				//System.out.print(arrPlayerWords[y*DISPLAY_ROWS+x]);
+				if(playerWords.size()>(y*DISPLAY_ROWS+x)){
+					//print the word and padding spaces
+					System.out.print(playerWords.get(y*DISPLAY_ROWS+x));
+					for(int z=0;z<(16-playerWords.get(y*DISPLAY_ROWS+x).length());z++){
+						System.out.print(" ");
+					}
+					
+				} else {
+					System.out.print("                ");
+				}
+			}
+			System.out.print("              ");
+			for(int y=0;y<cpuCols;y++){
+				System.out.print("      ");
+				if(cpuWords.size()>(y*DISPLAY_ROWS+x)){
+					//print the word and padding spaces
+					System.out.print(cpuWords.get(y*DISPLAY_ROWS+x));
+					for(int z=0;z<(16-cpuWords.get(y*DISPLAY_ROWS+x).length());z++){
+						System.out.print(" ");
+					}
+					
+				} else {
+					System.out.print("                ");
+				}
+			}
+			System.out.println();
+		}
 	}
 	public void newGame() {
 		for (int i = 0; i < 50; ++i) System.out.println(); // clear the screen the nice multiplatform way

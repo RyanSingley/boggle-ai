@@ -80,6 +80,9 @@ public class Game {
 	private void cpuTurn() {
 		// Computer players turn
 		cpuWords=findAllDictWords(playerWords);
+		for(int x=0;x<cpuWords.size();x++){
+			cpuScore=cpuScore+cpuWords.get(x).length();//add size of each word to score
+		}
 		view.update(playerWords,playerScore,gB.toString(),cpuScore,cpuWords);
 	}
 	private void playerTurn() {
