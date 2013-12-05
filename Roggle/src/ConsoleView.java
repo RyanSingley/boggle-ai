@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class ConsoleView {
+public class ConsoleView implements roggleView {
 	private static final int DISPLAY_ROWS=15;
 	public ConsoleView() {//needs the game object to pass to the controller
 		
@@ -71,7 +71,13 @@ public class ConsoleView {
 		//System.out.print("Player, enter your first word: ");
 		
 	}
-	public void badWord(String word) {
+	public void displayHelp(){
+		//TODO
+	}
+	public void messageToPlayer(String message){
+		System.out.println(message);
+	}
+	/*public void badWord(String word) {
 		//displays message about bad input
 		System.out.println(word+" is not a valid word in this game.");
 		System.out.println("Words must be at least 3 letters, with no punctuation or special characters.");
@@ -93,6 +99,6 @@ public class ConsoleView {
 		System.out.println("Words must be made from sequential adjacent letter tiles.");
 		System.out.println("Words cannot use the same letter tile twice. ");
 		System.out.println();
-	}
+	}*/
 
 }

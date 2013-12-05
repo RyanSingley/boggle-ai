@@ -10,6 +10,8 @@ public class Board {
 	private BoardNode[][] gameBoard;
 	private int sizeX;	//0 based
 	private int sizeY;  //0 based
+	private static final int SIZEX=3;
+	private static final int SIZEY=3;
 	public BoardNode getNodeAt(int x,int y){// 1 based
 		return gameBoard[x-1][y-1];
 	}
@@ -42,8 +44,8 @@ public class Board {
 		BoardNode[] path=null;
 		//list of startpoints
 		List<BoardNode> startPoints=new ArrayList<BoardNode>();//TODO different type of list?
-		for(int x=0;x<sizeX+1;x++){
-			for(int y=0;y<sizeY+1;y++){
+		for(int x=0;x<SIZEX+1;x++){
+			for(int y=0;y<SIZEY+1;y++){
 				if(gameBoard[x][y].getContents()==firstChar){
 					startPoints.add(gameBoard[x][y]);
 				}
@@ -131,25 +133,21 @@ public class Board {
 	public void setContent(int x,int y,char c){
 		gameBoard[x][y].setContents(c);
 	}
-	public Board(int x,int y){
-		//construct a board of size x,y
-		gameBoard=new BoardNode[x][y];
-		// x and y are 1 based convert them so they denote the right and bottom edges
-		x--;
-		y--;
-		sizeX=x;
-		sizeY=y;
+	public Board(){
+		//construct a board of size 4,4
+		gameBoard=new BoardNode[4][4];
+
 		char cont='a';
 		//Fill board content
-		for(int i=0;i<x+1;i++){
-			for(int j=0;j<y+1;j++){
-				cont=(char) ('C'+(i)*(x+1)+j);// filler  TODO random fill
+		for(int i=0;i<SIZEX+1;i++){
+			for(int j=0;j<SIZEY+1;j++){
+				cont=(char) ('C'+(i)*(SIZEX+1)+j);//TODO remove?  board being randomized elsewhere
 				gameBoard[i][j]=new BoardNode(cont);
 			}
 		}
 		//create the links between nodes - checks if the neighbor exists and adds it to the neighbor list
-		for(int i=0;i<x+1;i++){
-			for(int j=0;j<y+1;j++){
+		for(int i=0;i<SIZEX+1;i++){
+			for(int j=0;j<SIZEY+1;j++){
 				//up and left
 				if(i-1>=0&&j-1>=0){
 					gameBoard[i][j].neighbors.add(gameBoard[i-1][j-1]);
@@ -159,23 +157,23 @@ public class Board {
 					gameBoard[i][j].neighbors.add(gameBoard[i-1][j]);
 				}
 				//down and left
-				if(i-1>=0&&j+1<=y){
+				if(i-1>=0&&j+1<=SIZEY){
 					gameBoard[i][j].neighbors.add(gameBoard[i-1][j+1]);
 				}
 				//down
-				if(j+1<=y){
+				if(j+1<=SIZEY){
 					gameBoard[i][j].neighbors.add(gameBoard[i][j+1]);
 				}
 				//down and right
-				if(i+1<=x&&j+1<=y){
+				if(i+1<=SIZEX&&j+1<=SIZEY){
 					gameBoard[i][j].neighbors.add(gameBoard[i+1][j+1]);
 				}
 				//right
-				if(i+1<=x){
+				if(i+1<=SIZEX){
 					gameBoard[i][j].neighbors.add(gameBoard[i+1][j]);
 				}
 				//up and right
-				if(i+1<=x&&j-1>=0){
+				if(i+1<=SIZEX&&j-1>=0){
 					gameBoard[i][j].neighbors.add(gameBoard[i+1][j-1]);
 				}
 				//up
@@ -186,8 +184,8 @@ public class Board {
 		}
 	}
 	private void setAllUnseen(){
-		for(int x=0;x<sizeX+1;x++){
-			for(int y=0;y<sizeY+1;y++){
+		for(int x=0;x<SIZEX+1;x++){
+			for(int y=0;y<SIZEY+1;y++){
 				gameBoard[x][y].setSeen(false);
 			}
 		}

@@ -12,7 +12,10 @@ public class GameDriver {
 	//refactor game loop -- pull out some logic to separate methods
 	//rename stuff
 	//private/public
-	//less padding in word display
-	//edge case tests- no player words
+	//edge case tests- if any can be thought of
+	//test as an executeable 
+	//help screen
+	//gui
+	
 	
 }

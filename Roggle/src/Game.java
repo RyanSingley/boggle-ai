@@ -16,10 +16,14 @@ public class Game {
 		ArrayList<String> cpuWords;
 		int cpuScore;
 		private static final char[][] LETTERS={{'V','I','T','E','G','N'},{'A','C','E','S','L','R'},{'V','A','Z','E','D','N'},{'I','C','A','T','A','O'},{'N','O','D','U','K','T'},{'E','N','I','P','H','S'},{'O','R','I','F','B','X'},{'K','U','L','E','G','Y'},{'E','Y','I','E','H','F'},{'E','S','U','T','L','P'},{'E','W','O','S','D','N'},{'P','E','C','A','D','M'},{'A','L','I','B','T','Y'},{'S','A','H','O','M','R'},{'J','A','B','O','M','F'},{'U','R','I','G','L','W'}};
+		private static final String INPUT_MESSAGE="You may enter ? for help, or enter ! when done entering words.\n Enter a word:";
+		private static final String NOT_ON_BOARD_MESSAGE=" is not on the board. \nWords must be made from sequential adjacent letter tiles. \nWords cannot use the same letter tile twice. \n";
+		private static final String NOT_IN_DICT_MESSAGE=" is not in the dictionary.\nDictionary used is the Open Word List, complain to them if your word isn't allowed:)\n";
+		private static final String BAD_WORD_MESSAGE=" is not a valid word in this game.\nWords must be at least 3 letters, with no punctuation or special characters.\nWords cannot be played twice, even if they appear on the board twice.\n";
 	public Game() {
 		// TODO
 		//create the board, propagate it,
-		gB=new Board(4,4);
+		gB=new Board();
 		//create dictionary
 		try {
 			dict=new GameDictionary();
@@ -89,7 +93,7 @@ public class Game {
 		String word="";
 		//the game loop happens here
 		while(true){//loop until return
-		view.wordInputMessage();
+		view.messageToPlayer(INPUT_MESSAGE);
 		word=control.getWord();
 		if(word.equals("?")){
 			//special input for help
@@ -108,21 +112,18 @@ public class Game {
 				view.update(playerWords,playerScore,gB.toString(),cpuScore,cpuWords);
 				} else {
 					//not on board
-					view.notOnBoard(word);
+					view.messageToPlayer(NOT_ON_BOARD_MESSAGE);
 				}
 			} else {
 				//not in dictionary
-				view.notInDict(word);
+				view.messageToPlayer(NOT_IN_DICT_MESSAGE);
 			}
 		} else {
-			view.badWord(word);
+			view.messageToPlayer(BAD_WORD_MESSAGE);
 		}
 		}
 	}
-	private void addPlayerWord(String word) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public boolean wordValidator(String input) {
 		//performs basic validation on the word
 		if(input.length()<3){
