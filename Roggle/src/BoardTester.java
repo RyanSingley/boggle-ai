@@ -19,11 +19,11 @@ public class BoardTester {
 		} */
 		
 		String[] excluded={"ANA"};
-		String[] found=gB.findAllDictWords(dict, excluded);
+		//String[] found=gB.findAllDictWords(dict, excluded);
 		System.out.println("found words:");
-		for(int x=0;x<found.length;x++){
-			System.out.println(found[x]);
-		}
+	//	for(int x=0;x<found.length;x++){
+		//	System.out.println(found[x]);
+		//}
 		
 		
 		

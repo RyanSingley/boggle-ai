@@ -27,7 +27,7 @@ public class Board {
 			return true;
 		} else {
 			return false;
-		}
+		} 
 	}
 	public BoardNode[] findWord(String word){
 		//Method finds any occurrence of a word on the board, returning an array of the path for first found
@@ -128,32 +128,8 @@ public class Board {
 		}
 		return null;
 	}
-	public String[] findAllDictWords(GameDictionary dict,String[] excluded){
-		//iterates through all words in the dictionary, checking them against excluded and checking if they are on the board
-		Iterator<String> iter=dict.iterator();
-		String word;
-		List<String> foundWords=new ArrayList<String>();
-		boolean isExcluded;
-		while(iter.hasNext()){
-			word=iter.next();
-			//check against excluded
-			isExcluded=false;
-			for(int x=0;x<excluded.length;x++){
-				if(excluded[x].equals(word)){
-					isExcluded=true;
-					break;//stop checking the excluded list
-				}
-			}
-			if(!isExcluded){
-
-				if(this.isOnBoard(word)){
-
-					foundWords.add(word);
-				}
-			}
-		}
-
-		return foundWords.toArray(new String[foundWords.size()]);
+	public void setContent(int x,int y,char c){
+		gameBoard[x][y].setContents(c);
 	}
 	public Board(int x,int y){
 		//construct a board of size x,y
@@ -171,8 +147,6 @@ public class Board {
 				gameBoard[i][j]=new BoardNode(cont);
 			}
 		}
-		//debug remove
-		gameBoard[3][3].setContents('A');
 		//create the links between nodes - checks if the neighbor exists and adds it to the neighbor list
 		for(int i=0;i<x+1;i++){
 			for(int j=0;j<y+1;j++){
@@ -220,10 +194,13 @@ public class Board {
 	}
 	public String toString(){
 		String out="";
-		for(int x=0;x<sizeX+1;x++){
-			for(int y=0;y<sizeY+1;y++){
-				out=out+gameBoard[x][y].getContents();
+		out=out+"                              ---------\n";
+		for(int x=0;x<4;x++){
+			out=out+"                              |";
+			for(int y=0;y<4;y++){
+				out=out+gameBoard[x][y].getContents()+"|";
 			}
+			out=out+"\n                              ---------";
 			out=out+"\n";
 			/*for(int r=0;r<sizeX*2;r++){
 				out=out+"-";
