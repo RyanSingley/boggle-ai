@@ -15,6 +15,8 @@ public class GameDriver {
 	//test as an executeable 
 	//help screen
 	//gui
-	//depth seen at 
+	//redo complexity analysis
+	//cut the old search code
+	
 	
 }

@@ -15,16 +15,17 @@ public class Board {
 	public BoardNode getNodeAt(int x,int y){// 1 based
 		return gameBoard[x-1][y-1];
 	}
-	public boolean isOnBoard(String word){
+	/*public boolean isOnBoard(String word){
 
 		if(findWord(word)!=null){
 			return true;
 		} else {
 			return false;
 		} 
-	}
-	public BoardNode[] findWord(String word){
+	}*/
+	public boolean isOnBoard(String word){
 		BoardNode next;//TODO remove?
+		boolean result=false;
 		//Method finds any occurrence of a word on the board, returning an array of the path for first found
 
 		//Complexity analysis -- finding start points is O(n), the search is more difficult to analyze, absolute worst case is 
@@ -48,28 +49,28 @@ public class Board {
 		//dfs on each startpoint, returning the first successful one
 		while(iter.hasNext()){
 			next = iter.next();
-			path=findWordFrom(next,word);
-			System.out.println(word+" found:"+fwFromTree(next,word));
-			if(path!=null){
-				return path;
+			//path=findWordFrom(next,word);
+			if( fwFromTree(next,word)){
+				result=true;
 			}
+			
 		}
-		//word not found
-		return null;
+		
+		return result;
 	}
 	private boolean fwFromTree(BoardNode start, String word){
 		//builds a tree of the possible paths to find the word, searches up the tree each step to stop cyclical paths
 		//TODO REname
-		int targetDepth=word.length();
 		int depth=2;
 		//construct the root node
 		PathTreeNode root=new PathTreeNode(start);
 		return fwHelper(root,depth,word);
 	}
 	private boolean fwHelper(PathTreeNode parent, int depth, String word) {
+		PathTreeNode newChild;
 		BoardNode next;
 		//base case
-		if(depth==word.length()){
+		if(depth-1==word.length()){
 			return true;
 		}
 		// find all possible moves--parent and current contain the same thing
@@ -80,7 +81,10 @@ public class Board {
 			if(next.getContents()==word.charAt(depth-1)){
 				//upsearch it
 				if(parent.upSearch(next)==false){
-					parent.addChild(new PathTreeNode(next));//add it to the tree
+					newChild=new PathTreeNode(next);
+					newChild.setParent(parent);// create the backlink
+					parent.addChild(newChild);//add it to the tree
+					
 				}
 			}
 			
