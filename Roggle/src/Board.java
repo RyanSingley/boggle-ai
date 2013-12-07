@@ -24,6 +24,7 @@ public class Board {
 		} 
 	}
 	public BoardNode[] findWord(String word){
+		BoardNode next;//TODO remove?
 		//Method finds any occurrence of a word on the board, returning an array of the path for first found
 
 		//Complexity analysis -- finding start points is O(n), the search is more difficult to analyze, absolute worst case is 
@@ -46,7 +47,9 @@ public class Board {
 		Iterator<BoardNode> iter=startPoints.iterator();
 		//dfs on each startpoint, returning the first successful one
 		while(iter.hasNext()){
-			path=findWordFrom(iter.next(),word);
+			next = iter.next();
+			path=findWordFrom(next,word);
+			System.out.println(word+" found:"+fwFromTree(next,word));
 			if(path!=null){
 				return path;
 			}
@@ -54,8 +57,51 @@ public class Board {
 		//word not found
 		return null;
 	}
+	private boolean fwFromTree(BoardNode start, String word){
+		//builds a tree of the possible paths to find the word, searches up the tree each step to stop cyclical paths
+		//TODO REname
+		int targetDepth=word.length();
+		int depth=2;
+		//construct the root node
+		PathTreeNode root=new PathTreeNode(start);
+		return fwHelper(root,depth,word);
+	}
+	private boolean fwHelper(PathTreeNode parent, int depth, String word) {
+		BoardNode next;
+		//base case
+		if(depth==word.length()){
+			return true;
+		}
+		// find all possible moves--parent and current contain the same thing
+		Iterator<BoardNode> iter=parent.getContents().neighbors.iterator();
+		while(iter.hasNext()){
+			//add every possible neighbor to the tree
+			next=iter.next();
+			if(next.getContents()==word.charAt(depth-1)){
+				//upsearch it
+				if(parent.upSearch(next)==false){
+					parent.addChild(new PathTreeNode(next));//add it to the tree
+				}
+			}
+			
+		}
+		//recur on all the children of parent -- returning false only if they are all false
+		boolean result=false;
+		Iterator<PathTreeNode> pathIter=parent.childIterator();
+		while(pathIter.hasNext()){
+		if(fwHelper(pathIter.next(),depth+1,word)){
+			result=true;
+		}
+		
+		}
+		return result;
+		
+	}
 	private BoardNode[] findWordFrom(BoardNode start, String word){
-		//dfs like search to find a word from the start point
+		//dfs like search to find a word from the start point- 
+		//marks nodes as seen when they are put on the stack, to avoid crossing over the current path
+		//marks them unseen when backtracking, but marks instead the depth they were tried at.
+		//this is neccesary because a node in an invalid path might still be part of a valid path in a different place
 		StackADT<BoardNode> searchStack=new ArrayStack<BoardNode>();
 		int depth=1;
 		boolean found=false;

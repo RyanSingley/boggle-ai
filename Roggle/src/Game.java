@@ -103,19 +103,20 @@ public class Game {
 		}
 		if(wordValidator(word)){
 			//passes basic checks
-			if(dict.isWord(word)){
-				//it's in the dictionary--see if it's on the board
-				if(gB.isOnBoard(word)){
+			if(gB.isOnBoard(word)){
+				//it's on the board--see if it's in the dictionary
+				if(dict.isWord(word)){
 				playerWords.add(word);
 				playerScore=playerScore+word.length();
 				view.update(playerWords,playerScore,gB.toString(),cpuScore,cpuWords);
 				} else {
-					//not on board
-					view.messageToPlayer(NOT_ON_BOARD_MESSAGE);
+					//not in dictionary
+					view.messageToPlayer(NOT_IN_DICT_MESSAGE);
+					
 				}
 			} else {
-				//not in dictionary
-				view.messageToPlayer(NOT_IN_DICT_MESSAGE);
+				//not on board
+				view.messageToPlayer(NOT_ON_BOARD_MESSAGE);
 			}
 		} else {
 			view.messageToPlayer(BAD_WORD_MESSAGE);
